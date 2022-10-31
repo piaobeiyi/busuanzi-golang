@@ -7,7 +7,7 @@ Github项目地址 [wangdan7245/busuanzi-golang](https://github.com/wangdan7245/
 
 # 功能：
 
-- 兼容不蒜子接口 v2.4
+- 兼容不蒜子接口 v2.3
 - 可以私有部署，支持docker
 - 使用redis作为数据库，UA统计使用HyperLogLog[1]去重
 - 自动生成 js 文件

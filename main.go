@@ -85,7 +85,7 @@ func (r CacheData) ServeHTTP(resW http.ResponseWriter, req *http.Request) {
 	}
 
 	sitePV, siteUV, pagePV := r.getPVUV(up.Host, up.Path, remoteIp)
-	rsStr := fmt.Sprintf("try{%s({\"site_uv\":%d,\"page_pv\":%d,\"version\":2.4,\"site_pv\":%d});}catch(e){}\n",
+	rsStr := fmt.Sprintf("try{%s({\"site_uv\":%d,\"page_pv\":%d,\"version\":2.3,\"site_pv\":%d});}catch(e){}\n",
 		jsonpCallback, siteUV, pagePV, sitePV)
 	resW.Write([]byte(rsStr))
 }
