@@ -13,6 +13,7 @@ Github项目地址 [wangdan7245/busuanzi-golang](https://github.com/wangdan7245/
 - 自动生成 js 文件
 
 > [1] 基于 HyperLogLog 去重会损失部分精度，但是个人网站访问量不会太大，精度足够满足日常统计需求，加之其存储空间小去重效率高的优点，个人感觉用它是极好的
+
 # Docker 部署
 
 使用 docker-compose

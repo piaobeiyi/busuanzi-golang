@@ -9,7 +9,7 @@ services:
       - ./data:/data
   server:
     build: .
-    image: busuanzi-golang:2.4
+    image: vincent7681/busuanzi-golang
     container_name: bsz-server
     restart: always
     ports:
