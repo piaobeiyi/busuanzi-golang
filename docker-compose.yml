@@ -1,0 +1,19 @@
+version: '3'
+services:
+  redis:
+    image: redis:6.0-alpine
+    container_name: bsz-redis
+    command: redis-server --save 60 1 --loglevel warning
+    restart: always
+    volumes:
+      - ./data:/data
+  server:
+    build: .
+    image: busuanzi-golang:2.4
+    container_name: bsz-server
+    restart: always
+    ports:
+      - 18080:18080
+    environment:
+      REDIS_HOST: redis:6379
+      DOMAIN: xxx.xxx
