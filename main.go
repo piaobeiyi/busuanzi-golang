@@ -12,14 +12,13 @@ import (
 )
 
 func main() {
-	redisHost, redisAuth := initParams()
+	redisHost, redisAuth, urlPath := initParams()
 	dataCache := NewDataCache(redisHost, redisAuth)
-	fs := http.FileServer(http.Dir("./"))
-	http.Handle("/busuanzi.pure.mini.js", fs)
-	http.Handle("/bsz.pure.mini.min.js", fs)
-	http.Handle("/bsz.pure.mini.js", fs)
-	http.Handle("/busuanzi", dataCache)
-	http.Handle("/", dataCache)
+	jsFs := http.FileServer(http.Dir("./"))
+	http.Handle(urlPath+"/busuanzi.pure.mini.js", jsFs)
+	http.Handle(urlPath+"/bsz.pure.mini.min.js", jsFs)
+	http.Handle(urlPath+"/bsz.pure.mini.js", jsFs)
+	http.Handle(urlPath+"/", dataCache)
 
 	server := http.Server{
 		Addr: "0.0.0.0:18080",
@@ -27,10 +26,13 @@ func main() {
 	server.ListenAndServe()
 }
 
-func initParams() (string, string) {
+// 初始化服务，返回 redisHost,redisAuth,urlPath
+func initParams() (string, string, string) {
 	redisHost := os.Getenv("REDIS_HOST")
 	redisAuth := os.Getenv("REDIS_AUTH")
 	domain := os.Getenv("DOMAIN")
+
+	//替换busuanzi js 中的域名
 	jsCodeByte, err := ioutil.ReadFile("./busuanzi.js")
 	jsCode := string(jsCodeByte)
 	if err != nil {
@@ -38,10 +40,16 @@ func initParams() (string, string) {
 	} else {
 		jsCode = strings.ReplaceAll(jsCode, "busuanzi.ibruce.info/busuanzi", domain) + "\n"
 	}
-	ioutil.WriteFile("./bsz.pure.mini.js", []byte(jsCode), 0666)
-	ioutil.WriteFile("./bsz.pure.mini.min.js", []byte(jsCode), 0666)
-	ioutil.WriteFile("./busuanzi.pure.mini.js", []byte(jsCode), 0666)
-	return redisHost, redisAuth
+
+	//获取自定义URL路径
+	up, _ := url.Parse("http://" + domain)
+
+	//创建 js 文件
+	os.Mkdir("."+up.Path, 0777)
+	ioutil.WriteFile("."+up.Path+"/bsz.pure.mini.js", []byte(jsCode), 0666)
+	ioutil.WriteFile("."+up.Path+"/bsz.pure.mini.min.js", []byte(jsCode), 0666)
+	ioutil.WriteFile("."+up.Path+"/busuanzi.pure.mini.js", []byte(jsCode), 0666)
+	return redisHost, redisAuth, up.Path
 }
 
 type CacheData struct {
