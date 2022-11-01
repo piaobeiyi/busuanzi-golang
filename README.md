@@ -60,7 +60,7 @@ services:
 如果通过Nginx反代18080端口，需要添加如下配置，然后重载 Nginx 服务
 
 ```nginx
-    location  /bsz
+    location ^~ /bsz
     {
         proxy_pass http://127.0.0.1:18080;
         proxy_set_header Host $host;
