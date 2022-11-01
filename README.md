@@ -5,6 +5,9 @@
 
 Github项目地址 [wangdan7245/busuanzi-golang](https://github.com/wangdan7245/busuanzi-golang)
 
+# 详细部署文档参见
+[https://inio.cc/2022/10/31/基于golang实现的兼容不蒜子接口的服务/](https://inio.cc/2022/10/31/%E5%8D%9A%E5%AE%A2/%E5%9F%BA%E4%BA%8Egolang%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%85%BC%E5%AE%B9%E4%B8%8D%E8%92%9C%E5%AD%90%E6%8E%A5%E5%8F%A3%E7%9A%84%E6%9C%8D%E5%8A%A1/)
+
 # 功能：
 
 - 兼容不蒜子接口 v2.3
